@@ -90,10 +90,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         .setAction("Action", null).show();
                 switch (activeId){
                     case 0:
-                        AlumnoDialog.show(helper);
                         break;
                     case 1:
-                        ProfesorDialog.show(helper);
                         break;
                 }
             }
