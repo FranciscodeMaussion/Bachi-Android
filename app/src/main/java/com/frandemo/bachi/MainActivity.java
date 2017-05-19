@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         .setAction("Action", null).show();
                 switch (activeId){
                     case 0:
+                        startActivity(new Intent(helper, CreateAlumnoActivity.class));
                         break;
                     case 1:
                         break;
