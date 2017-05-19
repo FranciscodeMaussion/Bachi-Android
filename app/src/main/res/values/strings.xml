@@ -18,7 +18,7 @@
     <string name="nombre">Nombre</string>
 
     <string name="dialog_alumno_titulo">Añadir Alumno</string>
-    <string name="dialog_alumno_send">Enviar</string>
+    <string name="dialog_send">Enviar</string>
     <string name="dialog_alumno_input_escolar">Año Escolar</string>
     <string name="dialog_alumno_input_fecha">Fecha de Nacimiento</string>
     <string name="dialog_alumno_input_nombre">Nombre</string>
@@ -112,4 +112,5 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="dialog_date_titulo">Elija Fecha de Nacimiento</string>
 </resources>

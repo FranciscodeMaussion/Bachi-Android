@@ -4,17 +4,37 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class CreateAlumnoActivity extends AppCompatActivity {
-
+    private CreateAlumnoActivity helper = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_create_alumno);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        EditText myEditText = (EditText) findViewById(R.id.dialog_alumno_fecha);
+        myEditText.setInputType(InputType.TYPE_NULL);
+        myEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DateDialog.show(this);
+            }
+        });
+        myEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DateDialog.show(helper);
+                }
+            }
+        });
     }
 
     @Override
@@ -35,5 +55,10 @@ public class CreateAlumnoActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void calendarViewShow(View view) {
+        DateDialog.show(this);
     }
 }

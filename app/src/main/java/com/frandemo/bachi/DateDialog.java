@@ -24,9 +24,8 @@ public class DateDialog  extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         boolean wrapInScrollView = true;
         return new MaterialDialog.Builder(getActivity())
-                //.title(R.string.dialog_alumno_titulo)
-                //.customView(R.layout.create_alumno, wrapInScrollView)
-                //.positiveText(R.string.dialog_alumno_send)
+                .customView(R.layout.dialog_date, wrapInScrollView)
+                .positiveText(R.string.dialog_send)
                 .show();
     }
 }

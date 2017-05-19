@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="date"
+            android:onClick="calendarViewShow"
             android:hint="@string/dialog_alumno_input_fecha"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
