@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -24,7 +25,7 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
 
         setContentView(R.layout.activity_create_alumno);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        setTitle(getString(R.string.activity_alumno_create));
         myEditText = (EditText) findViewById(R.id.dialog_alumno_fecha);
         myEditText.setInputType(InputType.TYPE_NULL);
         myEditText.setOnClickListener(new View.OnClickListener() {

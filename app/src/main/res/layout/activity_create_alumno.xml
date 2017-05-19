@@ -9,7 +9,6 @@
     android:paddingRight="25dp"
     android:paddingTop="10dp"
     tools:context="com.frandemo.bachi.CreateAlumnoActivity"
-
     >
 
     <android.support.design.widget.TextInputLayout

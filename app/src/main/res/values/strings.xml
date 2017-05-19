@@ -113,4 +113,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="dialog_date_titulo">Elija Fecha de Nacimiento</string>
+    <string name="activity_alumno_create">Nuevo Alumno</string>
 </resources>
