@@ -1,5 +1,6 @@
 package com.frandemo.bachi;
 
+import android.app.DatePickerDialog;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,10 +9,15 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
-public class CreateAlumnoActivity extends AppCompatActivity {
-    private CreateAlumnoActivity helper = this;
+import java.util.Calendar;
+
+public class CreateAlumnoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+    private EditText myEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +25,7 @@ public class CreateAlumnoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_alumno);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        EditText myEditText = (EditText) findViewById(R.id.dialog_alumno_fecha);
+        myEditText = (EditText) findViewById(R.id.dialog_alumno_fecha);
         myEditText.setInputType(InputType.TYPE_NULL);
         myEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,7 +37,7 @@ public class CreateAlumnoActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    DateDialog.show(helper);
+                    showDatePickerDialog(v);
                 }
             }
         });
@@ -57,8 +63,20 @@ public class CreateAlumnoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // attach to an onclick handler to show the date picker
+    public void showDatePickerDialog(View v) {
+        DateDialog newFragment = new DateDialog();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
 
-    public void calendarViewShow(View view) {
-        DateDialog.show(this);
+    // handle the date selected
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        /* store the values selected into a Calendar instance
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);*/
+        myEditText.setText(dayOfMonth + "-" + monthOfYear + "-" + year);
     }
 }

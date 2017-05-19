@@ -1,5 +1,6 @@
 package com.frandemo.bachi;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,20 +13,23 @@ import com.afollestad.materialdialogs.MaterialDialog;
  * Created by demo on 18/05/17.
  */
 
-public class DateDialog  extends DialogFragment {
+import java.util.Calendar;  // do not import java.icu.utils.Calendar
 
-    public static void show(AppCompatActivity context) {
-        DateDialog dialog = new DateDialog();
-        dialog.show(context.getSupportFragmentManager(), "[DATE_DIALOG]");
-    }
+public class DateDialog extends DialogFragment {
 
-    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        boolean wrapInScrollView = true;
-        return new MaterialDialog.Builder(getActivity())
-                .customView(R.layout.dialog_date, wrapInScrollView)
-                .positiveText(R.string.dialog_send)
-                .show();
+        // Use the current time as the default values for the picker
+
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        // Activity needs to implement this interface
+        DatePickerDialog.OnDateSetListener listener = (DatePickerDialog.OnDateSetListener) getActivity();
+
+        // Create a new instance of DatePickerDialog and return it
+        return new DatePickerDialog(getActivity(), listener, year, month, day);
     }
 }
