@@ -13,11 +13,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class CreateAlumnoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private EditText myEditText;
+    private DatabaseReference mFirebaseDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,16 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
         int id = item.getItemId();
         switch (id){
             case R.id.action_yes:
+                EditText nombre = (EditText) findViewById(R.id.dialog_alumno_nombre);
+                EditText fecha = (EditText) findViewById(R.id.dialog_alumno_fecha);
+                EditText escolar = (EditText) findViewById(R.id.dialog_alumno_escolar);
+                Alumno newAlumno = new
+                        Alumno(nombre.getText().toString(),
+                        fecha.getText().toString(),
+                        Integer.parseInt(escolar.getText().toString()));
+                mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+                mFirebaseDatabaseReference.child("alumnos")
+                        .push().setValue(newAlumno);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -73,11 +88,13 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
     // handle the date selected
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        /* store the values selected into a Calendar instance
+        /* store the values selected into a Calendar instance*/
         final Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);*/
-        myEditText.setText(dayOfMonth + "-" + monthOfYear + "-" + year);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String date = format.format(c.getTime());
+        myEditText.setText(date);
     }
 }

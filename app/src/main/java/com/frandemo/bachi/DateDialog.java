@@ -32,4 +32,5 @@ public class DateDialog extends DialogFragment {
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), listener, year, month, day);
     }
+
 }

@@ -15,6 +15,12 @@ public class Alumno {
 
     }
 
+    public Alumno(String nombre, String fecha, int escolar) {
+        this.nombre = nombre;
+        this.fecha = fecha;
+        this.escolar = escolar;
+    }
+
     public String getFecha() {
         return fecha;
     }
