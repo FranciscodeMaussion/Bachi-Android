@@ -2,6 +2,8 @@ package com.frandemo.bachi;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -92,10 +95,18 @@ public class ProfesoresFragment extends Fragment{
                 if (profesor.getEmail() != null) {
                     helper += "Email: " + profesor.getEmail() + "\n";
                 }
-                
+                if (profesor.getAprobado() != 1) {
+                    helper += "Personal no autorizado";
+                }
                 viewHolder.fecha.setText(helper);
                 viewHolder.nombre.setText(profesor.getNombre());
 
+            }
+            @Override
+            protected void onCancelled(DatabaseError error) {
+                super.onCancelled(error);
+                Snackbar.make(view, ""+error, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         };
 

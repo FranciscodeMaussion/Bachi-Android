@@ -5,13 +5,23 @@ package com.frandemo.bachi;
  */
 
 public class Profesor {
-    String email;
-    String fecha;
-    String nombre;
-    Long telefono;
+    private String email;
+    private String fecha;
+    private String nombre;
+    private Long telefono;
+    private int aprobado;
+
 
     public Profesor() {
 
+    }
+
+    public Profesor(String email, String fecha, String nombre, Long telefono, int aprobado) {
+        this.email = email;
+        this.fecha = fecha;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.aprobado = aprobado;
     }
 
     public String getEmail() {
@@ -44,5 +54,13 @@ public class Profesor {
 
     public void setTelefono(Long telefono) {
         this.telefono = telefono;
+    }
+
+    public int getAprobado() {
+        return aprobado;
+    }
+
+    public void setAprobado(int aprobado) {
+        this.aprobado = aprobado;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -97,6 +98,13 @@ public class AlumnosFragment extends Fragment{
                     viewHolder.escolar.setVisibility(TextView.VISIBLE);
                 }
 
+            }
+
+            @Override
+            protected void onCancelled(DatabaseError error) {
+                super.onCancelled(error);
+                Snackbar.make(view, ""+error, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         };
 
