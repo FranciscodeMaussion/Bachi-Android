@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onClick(View view) {
                 int activeId = mViewPager.getCurrentItem();
-                Snackbar.make(view, ""+mViewPager.getAdapter().getPageTitle(activeId), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, ""+mViewPager.getAdapter().getPageTitle(activeId), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 switch (activeId){
                     case 0:
                         startActivity(new Intent(helper, CreateAlumnoActivity.class));
@@ -185,11 +184,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id){
-            case R.id.action_settings:
+            case R.id.about_menu:
+                //TODO About Dialog
                 return true;
             case R.id.sign_out_menu:
+                //TODO Send it to settings
                 signOut();
                 return true;
+            //TODO send feedback
         }
         return super.onOptionsItemSelected(item);
     }

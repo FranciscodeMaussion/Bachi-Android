@@ -24,4 +24,5 @@
     <string name="dialog_alumno_input_nombre">Nombre</string>
     <string name="dialog_date_titulo">Elija Fecha de Nacimiento</string>
     <string name="activity_alumno_create">Nuevo Alumno</string>
+    <string name="about">Acerca de</string>
 </resources>

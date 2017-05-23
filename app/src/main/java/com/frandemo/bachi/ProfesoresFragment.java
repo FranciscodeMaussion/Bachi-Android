@@ -96,7 +96,7 @@ public class ProfesoresFragment extends Fragment{
                     helper += "Email: " + profesor.getEmail() + "\n";
                 }
                 if (profesor.getAprobado() != 1) {
-                    helper += "Personal no autorizado";
+                    helper += "Personal no autorizado";//TODO Add button to authorize
                 }
                 viewHolder.fecha.setText(helper);
                 viewHolder.nombre.setText(profesor.getNombre());

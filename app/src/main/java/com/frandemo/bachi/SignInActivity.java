@@ -1,9 +1,6 @@
 package com.frandemo.bachi;
 
-/**
- * Created by demo on 08/05/17.
- */
-
+//TODO UI and Register
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

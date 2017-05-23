@@ -74,6 +74,7 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
                 mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
                 mFirebaseDatabaseReference.child("alumnos")
                         .push().setValue(newAlumno);
+                //TODO close activity
                 return true;
         }
         return super.onOptionsItemSelected(item);

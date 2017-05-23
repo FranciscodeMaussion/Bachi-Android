@@ -36,28 +36,20 @@ public class AlumnosFragment extends Fragment{
     private Context c;
 
 
-    private static class AlumnoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private static class AlumnoViewHolder extends RecyclerView.ViewHolder{
         TextView fecha;
         TextView nombre;
         TextView escolar;
 
         public AlumnoViewHolder(View v) {
             super(v);
-            itemView.setOnClickListener(this);
             fecha = (TextView) itemView.findViewById(R.id.fecha);
             nombre = (TextView) itemView.findViewById(R.id.nombre);
             escolar = (TextView) itemView.findViewById(R.id.escolar);
         }
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
-    /*public void Delete(int position){
-        mFirebaseAdapter.getRef(position).removeValue();
-        mFirebaseAdapter.notifyDataSetChanged();
-    }*/
     public AlumnosFragment() {
         // Required empty public constructor
     }
@@ -107,12 +99,23 @@ public class AlumnosFragment extends Fragment{
                     viewHolder.escolar.setText(alumno.getEscolar()+"° Año");
                     viewHolder.escolar.setVisibility(TextView.VISIBLE);
                 }
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        //TODO multiple selection
+                        //Toast.makeText(v.getContext(), "LongClick "+viewHolder.getAdapterPosition(), Toast.LENGTH_LONG).show();
+                        //mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
+                        //mFirebaseAdapter.notifyDataSetChanged();
+                        return false;
+                    }
+                });
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(v.getContext(), ""+viewHolder.getAdapterPosition(), Toast.LENGTH_LONG).show();
-                        mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
-                        mFirebaseAdapter.notifyDataSetChanged();
+                        //TODO open alumno activity
+                        //Toast.makeText(v.getContext(), "Click "+viewHolder.getAdapterPosition(), Toast.LENGTH_LONG).show();
+                        //mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
+                        //mFirebaseAdapter.notifyDataSetChanged();
                     }
                 });
 
