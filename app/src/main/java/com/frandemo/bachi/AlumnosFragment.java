@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseError;
@@ -35,19 +36,28 @@ public class AlumnosFragment extends Fragment{
     private Context c;
 
 
-    private static class AlumnoViewHolder extends RecyclerView.ViewHolder {
+    private static class AlumnoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView fecha;
         TextView nombre;
         TextView escolar;
 
         public AlumnoViewHolder(View v) {
             super(v);
+            itemView.setOnClickListener(this);
             fecha = (TextView) itemView.findViewById(R.id.fecha);
             nombre = (TextView) itemView.findViewById(R.id.nombre);
             escolar = (TextView) itemView.findViewById(R.id.escolar);
         }
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(view.getContext(), "position = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /*public void Delete(int position){
+        mFirebaseAdapter.getRef(position).removeValue();
+        mFirebaseAdapter.notifyDataSetChanged();
+    }*/
     public AlumnosFragment() {
         // Required empty public constructor
     }
@@ -97,6 +107,14 @@ public class AlumnosFragment extends Fragment{
                     viewHolder.escolar.setText(alumno.getEscolar()+"° Año");
                     viewHolder.escolar.setVisibility(TextView.VISIBLE);
                 }
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(v.getContext(), ""+viewHolder.getAdapterPosition(), Toast.LENGTH_LONG).show();
+                        mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
+                        mFirebaseAdapter.notifyDataSetChanged();
+                    }
+                });
 
             }
 
@@ -110,7 +128,6 @@ public class AlumnosFragment extends Fragment{
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
-
         return view;
     }
 
