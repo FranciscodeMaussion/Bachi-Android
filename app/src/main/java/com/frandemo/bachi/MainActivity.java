@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -90,9 +88,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 //Snackbar.make(view, ""+mViewPager.getAdapter().getPageTitle(activeId), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 switch (activeId){
                     case 0:
-                        startActivity(new Intent(helper, CreateAlumnoActivity.class));
+                        startActivity(new Intent(helper, AlumnoCreate.class));
                         break;
-                    case 1:
+                    default:
                         break;
                 }
             }
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         fab.show();
                         break;
 
-                    case 1:
+                    default:
                         fab.hide();
                         break;
                 }
@@ -127,8 +125,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AlumnosFragment(), "Alumnos");
-        adapter.addFragment(new ProfesoresFragment(), "Profesores");
+        adapter.addFragment(new AlumnosListFragment(), "Alumnos");
+        adapter.addFragment(new ProfesoresListFragment(), "Profesores");
         //add fragment for each tab
         viewPager.setAdapter(adapter);
     }

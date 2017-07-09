@@ -1,8 +1,8 @@
 package com.frandemo.bachi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseError;
@@ -23,9 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class ProfesoresFragment extends Fragment{
+public class AlumnosListFragment extends Fragment{
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<Profesor, PeopleViewHolder>
+    private FirebaseRecyclerAdapter<AlumnoBase, AlumnoViewHolder>
             mFirebaseAdapter;
 
     private RecyclerView mMessageRecyclerView;
@@ -35,18 +36,21 @@ public class ProfesoresFragment extends Fragment{
     private Context c;
 
 
-    private static class PeopleViewHolder extends RecyclerView.ViewHolder {
+    private static class AlumnoViewHolder extends RecyclerView.ViewHolder{
         TextView fecha;
         TextView nombre;
+        TextView escolar;
 
-        public PeopleViewHolder(View v) {
+        public AlumnoViewHolder(View v) {
             super(v);
             fecha = (TextView) itemView.findViewById(R.id.fecha);
             nombre = (TextView) itemView.findViewById(R.id.nombre);
+            escolar = (TextView) itemView.findViewById(R.id.escolar);
         }
+
     }
 
-    public ProfesoresFragment() {
+    public AlumnosListFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +62,7 @@ public class ProfesoresFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_profesores, container, false);
+        view = inflater.inflate(R.layout.alumnos_list_fragment, container, false);
         c = getContext();
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.peopleList);
@@ -66,19 +70,18 @@ public class ProfesoresFragment extends Fragment{
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Profesor,
-                PeopleViewHolder>(
-                Profesor.class,
-                R.layout.custom_row,
-                PeopleViewHolder.class,
-                mFirebaseDatabaseReference.child("profesores").orderByChild("nombre")) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<AlumnoBase,
+                AlumnoViewHolder>(
+                AlumnoBase.class,
+                R.layout.person_row,
+                AlumnoViewHolder.class,
+                mFirebaseDatabaseReference.child("alumnos").orderByChild("nombre")) {
             @Override
-            protected void populateViewHolder(final PeopleViewHolder viewHolder,
-                                              Profesor profesor, int position) {
+            protected void populateViewHolder(final AlumnoViewHolder viewHolder,
+                                              AlumnoBase alumnoBase, int position) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-                String helper = "";
-                if (profesor.getFecha() != null) {
-                    String str = profesor.getFecha();
+                if (alumnoBase.getFecha() != null) {
+                    String str = alumnoBase.getFecha();
                     Date date = null;
                     try {
                         date = new SimpleDateFormat("yyyy-mm-dd").parse(str);
@@ -87,21 +90,40 @@ public class ProfesoresFragment extends Fragment{
                     }
                     // format the java.util.Date object to the desired format
                     String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date);
-                    helper += "Nacimiento: " + formattedDate + "\n";
+                    viewHolder.fecha.setText("Nacimiento: " + formattedDate);
                 }
-                if (profesor.getTelefono() != 0) {
-                    helper += "Teléfono: " + profesor.getTelefono() + "\n";
+
+
+                viewHolder.nombre.setText(alumnoBase.getNombre());
+                if (alumnoBase.getEscolar() != 0) {
+                    viewHolder.escolar.setText(alumnoBase.getEscolar()+"° Año");
+                    viewHolder.escolar.setVisibility(TextView.VISIBLE);
                 }
-                if (profesor.getEmail() != null) {
-                    helper += "Email: " + profesor.getEmail() + "\n";
-                }
-                if (profesor.getAprobado() != 1) {
-                    helper += "Personal no autorizado";//TODO Add button to authorize
-                }
-                viewHolder.fecha.setText(helper);
-                viewHolder.nombre.setText(profesor.getNombre());
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        //TODO multiple selection
+                        Toast.makeText(v.getContext(), "LongClick "+viewHolder.getAdapterPosition(), Toast.LENGTH_LONG).show();
+                        //mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
+                        //mFirebaseAdapter.notifyDataSetChanged();
+                        return true;
+                    }
+                });
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
+                        //mFirebaseAdapter.notifyDataSetChanged();
+                        DatabaseReference alumnoHelper = mFirebaseAdapter.getRef(viewHolder.getAdapterPosition());
+                        //Toast.makeText(v.getContext(), "Click "+alumnoHelper.getKey(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(v.getContext(), AlumnoInfo.class);
+                        intent.putExtra("EXTRA_ALUMNO_ID", alumnoHelper.getKey());
+                        startActivity(intent);
+                    }
+                });
 
             }
+
             @Override
             protected void onCancelled(DatabaseError error) {
                 super.onCancelled(error);
@@ -112,7 +134,6 @@ public class ProfesoresFragment extends Fragment{
 
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
-
         return view;
     }
 

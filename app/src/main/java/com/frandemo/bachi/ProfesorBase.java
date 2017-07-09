@@ -4,7 +4,7 @@ package com.frandemo.bachi;
  * Created by demo on 16/05/17.
  */
 
-public class Profesor {
+public class ProfesorBase {
     private String email;
     private String fecha;
     private String nombre;
@@ -12,11 +12,11 @@ public class Profesor {
     private int aprobado;
 
 
-    public Profesor() {
+    public ProfesorBase() {
 
     }
 
-    public Profesor(String email, String fecha, String nombre, Long telefono, int aprobado) {
+    public ProfesorBase(String email, String fecha, String nombre, Long telefono, int aprobado) {
         this.email = email;
         this.fecha = fecha;
         this.nombre = nombre;

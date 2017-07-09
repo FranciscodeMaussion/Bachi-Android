@@ -1,15 +1,12 @@
 package com.frandemo.bachi;
 
 import android.app.DatePickerDialog;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -19,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class CreateAlumnoActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class AlumnoCreate extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private EditText myEditText;
     private DatabaseReference mFirebaseDatabaseReference;
@@ -28,7 +25,7 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_create_alumno);
+        setContentView(R.layout.alumno_create);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.activity_alumno_create));
         myEditText = (EditText) findViewById(R.id.dialog_alumno_fecha);
@@ -67,13 +64,13 @@ public class CreateAlumnoActivity extends AppCompatActivity implements DatePicke
                 EditText nombre = (EditText) findViewById(R.id.dialog_alumno_nombre);
                 EditText fecha = (EditText) findViewById(R.id.dialog_alumno_fecha);
                 EditText escolar = (EditText) findViewById(R.id.dialog_alumno_escolar);
-                Alumno newAlumno = new
-                        Alumno(nombre.getText().toString(),
+                AlumnoBase newAlumnoBase = new
+                        AlumnoBase(nombre.getText().toString(),
                         fecha.getText().toString(),
                         Integer.parseInt(escolar.getText().toString()));
                 mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
                 mFirebaseDatabaseReference.child("alumnos")
-                        .push().setValue(newAlumno);
+                        .push().setValue(newAlumnoBase);
                 //TODO close activity
                 return true;
         }

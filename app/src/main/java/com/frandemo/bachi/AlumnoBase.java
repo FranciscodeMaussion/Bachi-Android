@@ -5,17 +5,17 @@ package com.frandemo.bachi;
  */
 
 
-public class Alumno {
+public class AlumnoBase {
 
     private String nombre;
     private String fecha;
     private int escolar = 0;
 
-    public Alumno() {
+    public AlumnoBase() {
 
     }
 
-    public Alumno(String nombre, String fecha, int escolar) {
+    public AlumnoBase(String nombre, String fecha, int escolar) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.escolar = escolar;
