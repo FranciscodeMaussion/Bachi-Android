@@ -1,9 +1,11 @@
 package com.frandemo.bachi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     public static final String ANONYMOUS = "anonymous";
     private static final String TAG = "MainActivity";
+    static final int NEW_ALUMNO = 1;  // The request code
+
 
     // Firebase instance variables
     private String mUsername;
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 //Snackbar.make(view, ""+mViewPager.getAdapter().getPageTitle(activeId), Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 switch (activeId){
                     case 0:
-                        startActivity(new Intent(helper, AlumnoCreate.class));
+                        startActivityForResult(new Intent(helper, AlumnoCreate.class), NEW_ALUMNO);
                         break;
                     default:
                         break;
@@ -121,6 +125,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        View view = this.getWindow().getDecorView().getRootView();
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("new_alumno_name");
+                Snackbar.make(view, "Se creó el alumno "+result, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            else {
+                Snackbar.make(view, "Operación cancelada", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {

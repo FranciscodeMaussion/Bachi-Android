@@ -1,6 +1,8 @@
 package com.frandemo.bachi;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -71,7 +73,10 @@ public class AlumnoCreate extends AppCompatActivity implements DatePickerDialog.
                 mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
                 mFirebaseDatabaseReference.child("alumnos")
                         .push().setValue(newAlumnoBase);
-                //TODO close activity
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("new_alumno_name", newAlumnoBase.getNombre());
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

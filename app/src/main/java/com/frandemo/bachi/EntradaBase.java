@@ -4,7 +4,7 @@ package com.frandemo.bachi;
  * Created by demo on 21/06/17.
  */
 
-class EntradaBase {
+public class EntradaBase {
 
     private String fecha;
     private String profesor;
