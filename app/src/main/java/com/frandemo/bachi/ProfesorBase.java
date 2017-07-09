@@ -16,12 +16,12 @@ public class ProfesorBase {
 
     }
 
-    public ProfesorBase(String email, String fecha, String nombre, Long telefono, int aprobado) {
+    public ProfesorBase(String email, String fecha, String nombre, Long telefono) {
         this.email = email;
         this.fecha = fecha;
         this.nombre = nombre;
         this.telefono = telefono;
-        this.aprobado = aprobado;
+        this.aprobado = 0;
     }
 
     public String getEmail() {

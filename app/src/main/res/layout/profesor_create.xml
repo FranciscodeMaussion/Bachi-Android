@@ -8,15 +8,15 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingTop="10dp"
-    tools:context="com.frandemo.bachi.AlumnoCreate"
+    tools:context="com.frandemo.bachi.ProfesorCreate"
     >
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_dialog_alumno_nombre"
+        android:id="@+id/input_layout_dialog_profesor_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/dialog_alumno_nombre"
+            android:id="@+id/dialog_profesor_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -25,11 +25,11 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_dialog_alumno_fecha"
+        android:id="@+id/input_layout_dialog_profesor_fecha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/dialog_alumno_fecha"
+            android:id="@+id/dialog_profesor_fecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,15 +38,15 @@
             android:hint="@string/dialog_input_fecha"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_dialog_alumno_escolar"
+        android:id="@+id/input_layout_dialog_profesor_telefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/dialog_alumno_escolar"
+            android:id="@+id/dialog_profesor_telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:hint="@string/dialog_alumno_input_escolar"/>
+            android:hint="@string/dialog_input_telefono"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
