@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.Date;
 
 
 public class AlumnosListFragment extends Fragment{
+    private static final String TAG = "AlumnosList";
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<AlumnoBase, AlumnoViewHolder>
             mFirebaseAdapter;
@@ -84,7 +86,7 @@ public class AlumnosListFragment extends Fragment{
                     String str = alumnoBase.getFecha();
                     Date date = null;
                     try {
-                        date = new SimpleDateFormat("yyyy-mm-dd").parse(str);
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(str);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -114,10 +116,10 @@ public class AlumnosListFragment extends Fragment{
                     public void onClick(View v) {
                         //mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).removeValue();
                         //mFirebaseAdapter.notifyDataSetChanged();
-                        DatabaseReference alumnoHelper = mFirebaseAdapter.getRef(viewHolder.getAdapterPosition());
+                        String alumnoHelper = mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
                         //Toast.makeText(v.getContext(), "Click "+alumnoHelper.getKey(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(v.getContext(), AlumnoInfo.class);
-                        intent.putExtra("EXTRA_ALUMNO_ID", alumnoHelper.getKey());
+                        intent.putExtra("EXTRA_ALUMNO_ID", alumnoHelper);
                         startActivity(intent);
                     }
                 });
@@ -127,8 +129,11 @@ public class AlumnosListFragment extends Fragment{
             @Override
             protected void onCancelled(DatabaseError error) {
                 super.onCancelled(error);
-                Snackbar.make(view, ""+error, Snackbar.LENGTH_LONG)
+                Log.e(TAG, ""+error);
+                Snackbar.make(view, "Usted no tiene accesso.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
             }
         };
 

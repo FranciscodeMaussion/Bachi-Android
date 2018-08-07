@@ -19,7 +19,7 @@
         android:layout_marginStart="19dp" />
 
     <TextView
-        android:id="@+id/asignatura"
+        android:id="@+id/observaciones"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"

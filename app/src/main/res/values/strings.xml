@@ -118,4 +118,5 @@
     <string name="dialog_input_telefono">Teléfono</string>
     <string name="dialog_input_email">Email</string>
     <string name="activity_profesor_create">Ser Profesor</string>
+    <string name="title_activity_entrada_info">EntradaInfo</string>
 </resources>

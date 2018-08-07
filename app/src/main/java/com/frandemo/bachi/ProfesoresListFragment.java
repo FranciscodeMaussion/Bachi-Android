@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import java.util.Date;
 
 
 public class ProfesoresListFragment extends Fragment{
+    private static final String TAG = "ProfesoresList";
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<ProfesorBase, PeopleViewHolder>
             mFirebaseAdapter;
@@ -80,7 +82,7 @@ public class ProfesoresListFragment extends Fragment{
                     String str = profesorBase.getFecha();
                     Date date = null;
                     try {
-                        date = new SimpleDateFormat("yyyy-mm-dd").parse(str);
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(str);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -104,8 +106,10 @@ public class ProfesoresListFragment extends Fragment{
             @Override
             protected void onCancelled(DatabaseError error) {
                 super.onCancelled(error);
-                Snackbar.make(view, ""+error, Snackbar.LENGTH_LONG)
+                Log.e(TAG, ""+error);
+                Snackbar.make(view, "Usted no tiene accesso.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             }
         };
 

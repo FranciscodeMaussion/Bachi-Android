@@ -1,13 +1,16 @@
 package com.frandemo.bachi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,13 +46,13 @@ public class AlumnoInfo extends AppCompatActivity {
     private static class EntradaViewHolder extends RecyclerView.ViewHolder{
         TextView fecha;
         ImageView profesor;
-        TextView asignatura;
+        TextView observaciones;
         TextView tareas;
 
         public EntradaViewHolder(View v) {
             super(v);
             fecha = (TextView) itemView.findViewById(R.id.fecha);
-            asignatura = (TextView) itemView.findViewById(R.id.asignatura);
+            observaciones = (TextView) itemView.findViewById(R.id.observaciones);
             tareas = (TextView) itemView.findViewById(R.id.tareas);
             profesor = (ImageView) itemView.findViewById(R.id.profesor);
         }
@@ -69,7 +72,7 @@ public class AlumnoInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        .setAction("Action", null).show();//TODO Make add_entrada
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,7 +84,6 @@ public class AlumnoInfo extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mAlumno = dataSnapshot.getValue(AlumnoBase.class);
                 System.out.println("Here I am");
-                getSupportActionBar().setTitle(mAlumno.getNombre());
                 mActionBarToolbar.setTitle(mAlumno.getNombre());
             }
 
@@ -112,14 +114,15 @@ public class AlumnoInfo extends AppCompatActivity {
                     String str = entradaBase.getFecha();
                     Date date = null;
                     try {
-                        date = new SimpleDateFormat("yyyy-mm-dd").parse(str);
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(str);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     // format the java.util.Date object to the desired format
-                    String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date);
+                    String formattedDate = new SimpleDateFormat("dd MMMM yyyy").format(date);
                     viewHolder.fecha.setText(formattedDate);
                 }
+                viewHolder.observaciones.setText(entradaBase.getObservaciones());
 
                 viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -132,6 +135,12 @@ public class AlumnoInfo extends AppCompatActivity {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String entradaHelper = mFirebaseAdapter.getRef(viewHolder.getAdapterPosition()).getKey();
+                        //Toast.makeText(v.getContext(), "Click "+alumnoHelper.getKey(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(v.getContext(), EntradaInfo.class);
+                        intent.putExtra("EXTRA_ALUMNO_ID", getIntent().getStringExtra("EXTRA_ALUMNO_ID"));
+                        intent.putExtra("EXTRA_ENTRADA_ID", entradaHelper);
+                        startActivity(intent);
                     }
                 });
 
